@@ -1,4 +1,10 @@
-﻿using UnityEngine;
+﻿/*
+ * Autores
+ * Santiago Morales Alvarez
+ * Juan Diego Valencia
+*/
+
+using UnityEngine;
 using System;
 using UnityEngine.AI;
 using CharacterSystem.Skills;
@@ -6,7 +12,8 @@ using CharacterSystem.Composition;
 
 namespace CharacterSystem
 {
-    public enum CharacterState{
+    public enum CharacterState
+    {
         hide,
         inSpawn,
         active,
@@ -29,13 +36,14 @@ namespace CharacterSystem
         [SerializeField]
         [InspectorName("Name")]
         private String characterName;
-        
+
         public delegate void NotifyState(Character m_character, CharacterState state);
         public event NotifyState e_NewState;
-        
+
         private AttributeComposition m_basicAttributes;
-        private int level; 
-        [SerializeField][InspectorName("List of Skills")]
+        private int level;
+        [SerializeField]
+        [InspectorName("List of Skills")]
         protected Skill[] skills;
         private Character_Control m_controlPlayer;
         private CharacterState state;
@@ -61,7 +69,7 @@ namespace CharacterSystem
             {
                 return m_Animator;
             }
-            
+
         }
         public NavMeshAgent NavAgent
         {
@@ -131,12 +139,15 @@ namespace CharacterSystem
             {
                 m_movIA = this.gameObject.GetComponentInChildren<MovIA>();
             }
-            catch {
+            catch
+            {
             }
-            try { 
-            m_movJoystick = this.gameObject.GetComponentInChildren<MovJoystick>();
-        }
-            catch {
+            try
+            {
+                m_movJoystick = this.gameObject.GetComponentInChildren<MovJoystick>();
+            }
+            catch
+            {
             }
 
             skills = this.GetComponents<Skill>();
@@ -144,7 +155,8 @@ namespace CharacterSystem
             BuildAttributes();
         }
 
-        public void BuildAttributes() {
+        public void BuildAttributes()
+        {
             m_basicAttributes = new AttributeComposition(this.GetComponent<LifeCharacter>(), this.GetComponent<EnergyCharacter>(),
                 this.GetComponent<DefenceCharacter>(), this.GetComponent<SpeedCharacter>(), this.GetComponent<TenacyCharacter>(),
                 this.GetComponent<CognitiveControlCharacter>());
@@ -153,9 +165,10 @@ namespace CharacterSystem
             m_basicAttributes.LifeCharacter.e_withoutLife += Dead;
         }
 
-        public void UpgradeLevel() { //a character start in 0 level
+        public void UpgradeLevel()
+        { 
+            //a character start in 0 level
             level++;
-            //skills[level-1].UpgradeLevel();
         }
 
         #region states
@@ -170,13 +183,15 @@ namespace CharacterSystem
             }
             catch
             {
+                Debug.Log("Exception, without state");
             }
         }
 
         /// <summary>
         /// It's killed by its own life attributte
         /// </summary>
-        private void Dead() {
+        private void Dead()
+        {
             level = 0;
             m_Animator.SetTrigger("die");
             UpdateState(CharacterState.inDead);
@@ -193,7 +208,7 @@ namespace CharacterSystem
         /// <summary>
         /// It's invoke by the GAME MODE
         /// </summary>
-        public void Spawn() 
+        public void Spawn()
         {
             UpdateState(CharacterState.inSpawn);
 
@@ -202,7 +217,7 @@ namespace CharacterSystem
         /// <summary>
         /// It's invoke by the ANIMATOR
         /// </summary>
-        public void FinishSpawn() 
+        public void FinishSpawn()
         {
             UpdateState(CharacterState.active);
         }

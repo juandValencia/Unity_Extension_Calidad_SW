@@ -1,4 +1,10 @@
-﻿using UnityEngine;
+﻿/*
+ * Autores
+ * Santiago Morales Alvarez
+ * Santiago Salgado
+*/
+
+using UnityEngine;
 using UnityEditor;
 using CharacterSystem;
 using CharacterSystem.Skills;
@@ -44,8 +50,9 @@ namespace EditorView
             {
                 character = (Selection.activeObject as GameObject).GetComponent<Character>();
             }
-            catch {
-                
+            catch
+            {
+
             }
             GUILayout.Space(10);
 
@@ -58,11 +65,11 @@ namespace EditorView
                 GUILayout.Label("Name: " + character.CharacterName);
                 GUILayout.Label("State: " + character.State);
                 GUILayout.EndHorizontal();
-                
+
                 GUILayout.Space(20);
                 #endregion
 
-                GUILayout.BeginArea(new Rect(8,50, position.width-8, position.height-50));
+                GUILayout.BeginArea(new Rect(8, 50, position.width - 8, position.height - 50));
                 scrollPos = GUILayout.BeginScrollView(scrollPos, false, true);
                 #region composition
                 GUILayout.BeginHorizontal();
@@ -225,7 +232,7 @@ namespace EditorView
                 #endregion
                 GUI.EndScrollView();
                 GUILayout.EndArea();
-                
+
             }
         }
     }
