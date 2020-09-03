@@ -13,6 +13,16 @@ namespace EditorView
 {
     public class Character_ViewWindow : EditorWindow
     {
+
+
+        private bool showingComposition = false, showingSkills = false;
+        private bool builtAttributes = false;
+        private Rect r = Rect.zero;
+        private Vector2 scrollPos;
+        private Character character;
+
+        GUIStyle titleStyle = new GUIStyle(), subtitleStyle = new GUIStyle();
+
         [MenuItem("Window/NTC Workspace/Character")]
         public static void ShowWindow()
         {
@@ -20,13 +30,6 @@ namespace EditorView
         }
 
 
-        bool showingComposition = false, showingSkills = false;
-        bool builtAttributes = false;
-        Rect r = Rect.zero;
-        Vector2 scrollPos;
-        Character character;
-
-        GUIStyle titleStyle = new GUIStyle(), subtitleStyle = new GUIStyle();
 
 
         private void ConfigStyles()

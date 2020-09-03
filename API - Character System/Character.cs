@@ -2,6 +2,7 @@
  * Autores
  * Santiago Morales Alvarez
  * Juan Diego Valencia
+ * Cristian David Gomez
 */
 
 using UnityEngine;
